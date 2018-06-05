@@ -5,7 +5,7 @@ import time
 def main():
 	keyPlayerID = 227488010
 	keyPlayerName = 'Nixim'
-	api = RiotAPI('RGAPI-79a6b045-fe59-4d49-9e1c-15e8e12e72ab')
+	api = RiotAPI('RGAPI-6e7a32f4-6884-4e35-8230-e11e602b2425')
 	conn = sql.connect('test_table.db')
 	c = conn.cursor()
 	c.execute('CREATE TABLE IF NOT EXISTS samplePlayer (name TEXT PRIMARY KEY, accountID INTEGER)')	
@@ -22,7 +22,7 @@ def main():
 		game = api.get_match_by_matchId(matchID)
 		query_counter = query_counter + 1
 		for one in game['participantIdentities']:
-			if(one['player']['accountId'] != keyPlayerID):
+			if(one['player']['currentAccountId'] != keyPlayerID):
 				command = 'REPLACE INTO samplePlayer(name, accountID) VALUES (\'' + one['player']['summonerName'] + '\',' + str(one["player"]["accountId"]) + ')'
 				c.execute(command)
 				#print(one['player']['summonerName'])
